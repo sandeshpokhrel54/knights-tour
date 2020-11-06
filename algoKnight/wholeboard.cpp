@@ -1,5 +1,8 @@
 #include "wholeboard.h"
 
+int *wholeBoard::test[5][5]={};
+board *wholeBoard::B[DIMENSION][DIMENSION]={};
+
 //empty constructor
 wholeBoard::wholeBoard()
 {
@@ -13,6 +16,7 @@ void wholeBoard::setupBoard(QGraphicsScene *scene)
         {
             for(int j = 0; j<DIMENSION; j++)
             {
+
                 B[i][j] = new board;
                 B[i][j]->positionX = i;
                 B[i][j]->positionY = j;
@@ -27,10 +31,12 @@ void wholeBoard::setupBoard(QGraphicsScene *scene)
         }
 }
 
-
 void wholeBoard::availSpots()
 {
     if(board::count == 1)
+    {
+        //
+    }
 
     for(int i=0; i<DIMENSION; i++)
     {
@@ -40,7 +46,7 @@ void wholeBoard::availSpots()
             if(B[i][j]->selected == true )
             {
                 //use boundry and set available to true
-                //boundry j-2>0, i-2>0, j+2<dimension, i+2<dimension
+                //boundry - > 0, + < dimension
                 //for all board objects if boundry doesn't exceed limit then available = true for
                  /* i-2, j+1
                  * i-2, j-1
@@ -52,6 +58,53 @@ void wholeBoard::availSpots()
                  * i+1, j+2
                  */
 
+                //1
+                if( i-2 > 0 && j+1 < DIMENSION)
+                {
+                    B[i-2][j+1]->available = true;
+                }
+
+                //2
+                if( i-2 > 0 && j-1 > 0)
+                {
+                    B[i-2][j-1]->available = true;
+                }
+
+                //3
+                if( i-1 > 0 && j-2 > 0)
+                {
+                    B[i-1][j-2]->available = true;
+                }
+
+                //4
+                if( i+1 < DIMENSION && j-2 > 0)
+                {
+                    B[i+1][j-2]->available = true;
+                }
+
+                //5
+                if( i+2 < DIMENSION && j+1 < DIMENSION)
+                {
+                    B[i+2][j+1]->available = true;
+                }
+
+                //6
+                if( i+2 < DIMENSION && j-1 > 0)
+                {
+                    B[i+2][j-1]->available = true;
+                }
+
+                //7
+                if( i-1 > 0 && j+2 < DIMENSION)
+                {
+                    B[i-1][j+2]->available = true;
+                }
+
+                //8
+                if( i+1 > 0 && j+2 < DIMENSION)
+                {
+                    B[i+1][j+2]->available = true;
+                }
 
             }
 

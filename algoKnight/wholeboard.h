@@ -10,12 +10,12 @@ class wholeBoard:public board
 public:
     wholeBoard();
     void setupBoard(QGraphicsScene *scene);
-    void availSpots();
+    static void availSpots();
 
-    board *B[DIMENSION][DIMENSION];
+    static board *B[DIMENSION][DIMENSION];
 
     void placeKnight(int *posX, int *posY);
-
+    static int *test[5][5];
 
 };
 
