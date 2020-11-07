@@ -5,6 +5,7 @@ int board::count = 1;
 
 board::board()
 {
+    pieceColor = true;
     setFlag(QGraphicsItem::ItemIsSelectable);
 
 }
@@ -20,10 +21,10 @@ void board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     QBrush brush(Qt::white);
 
     //drawing the rectangle black/white alternatively
-    if(!pieceColor)
-        brush.setColor(Qt::gray);
-    else
+    if(pieceColor)
         brush.setColor(Qt::white);
+    else
+        brush.setColor(Qt::gray);
 
     //yellow if selected
     if(selected)
@@ -43,7 +44,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
     //only one of the box can be selected
     //deselect the selected box and only then you can select another box
 
-    wholeBoard::availSpots();
+    //wholeBoard::availSpots();
 
     if(!selected)
     {
@@ -53,6 +54,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             count++;
             selected = true;
+            wholeBoard::availSpots();
         }
 
     }
@@ -61,6 +63,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         selected = false;
         count--;
+        wholeBoard::availSpots();
     }
 
 

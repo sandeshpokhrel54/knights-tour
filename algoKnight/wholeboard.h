@@ -15,7 +15,6 @@ public:
     static board *B[DIMENSION][DIMENSION];
 
     void placeKnight(int *posX, int *posY);
-    static int *test[5][5];
 
 };
 

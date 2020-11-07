@@ -1,6 +1,5 @@
 #include "wholeboard.h"
 
-int *wholeBoard::test[5][5]={};
 board *wholeBoard::B[DIMENSION][DIMENSION]={};
 
 //empty constructor
@@ -43,10 +42,11 @@ void wholeBoard::availSpots()
         for(int j=0; j<DIMENSION; j++)
         {
             //board piece's available spots are to be shown
+
             if(B[i][j]->selected == true )
             {
                 //use boundry and set available to true
-                //boundry - > 0, + < dimension
+                //boundry:  - > 0, + < dimension
                 //for all board objects if boundry doesn't exceed limit then available = true for
                  /* i-2, j+1
                  * i-2, j-1
@@ -108,11 +108,19 @@ void wholeBoard::availSpots()
 
             }
 
+            //when spot is deselected, reset the board to have no available spots as well;
+            else
+            {
+
+                B[i][j]->available = false;
+            }
+
             B[i][j]->update();
 
         }
     }
 }
+
 
 
 void wholeBoard::placeKnight(int *posX, int *posY)
@@ -133,5 +141,6 @@ void wholeBoard::placeKnight(int *posX, int *posY)
     *posY = y;
 
 }
+
 
 
