@@ -42,6 +42,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     //only one of the box can be selected
     //deselect the selected box and only then you can select another box
+
     wholeBoard::availSpots();
 
     if(!selected)
