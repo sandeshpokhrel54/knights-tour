@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
     scene =  new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
     Board.setupBoard(scene);
-    Board.availSpots();
 }
 
 
@@ -38,3 +37,8 @@ void MainWindow::on_placeKnight_clicked()
 }
 
 
+
+void MainWindow::on_resetAll_clicked()
+{
+    Board.resetBoard();
+}

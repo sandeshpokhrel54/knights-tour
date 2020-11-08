@@ -46,6 +46,9 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     //wholeBoard::availSpots();
 
+    //if knight is to move to an available spot...//logic here
+
+
     if(!selected)
     {
         if(count>1)
@@ -54,7 +57,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
         {
             count++;
             selected = true;
-            wholeBoard::availSpots();
+            wholeBoard::availSpots(); //make spots available
         }
 
     }
@@ -63,7 +66,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         selected = false;
         count--;
-        wholeBoard::availSpots();
+        wholeBoard::unavailSpots();   //make spots unavailable
     }
 
 

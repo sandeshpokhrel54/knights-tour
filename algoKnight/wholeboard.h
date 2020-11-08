@@ -11,10 +11,13 @@ public:
     wholeBoard();
     void setupBoard(QGraphicsScene *scene);
     static void availSpots();
+    static void unavailSpots();
 
     static board *B[DIMENSION][DIMENSION];
 
     void placeKnight(int *posX, int *posY);
+
+    void resetBoard();
 
 };
 

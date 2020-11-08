@@ -25,6 +25,8 @@ private slots:
 
 
 
+    void on_resetAll_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
