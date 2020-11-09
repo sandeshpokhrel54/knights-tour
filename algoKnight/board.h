@@ -16,6 +16,7 @@ public:
     bool selected = false;
     static int count;
     bool available = false;
+    bool visited = false;
 
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;

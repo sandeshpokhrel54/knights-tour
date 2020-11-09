@@ -12,6 +12,7 @@ public:
     void setupBoard(QGraphicsScene *scene);
     static void availSpots();
     static void unavailSpots();
+    static void renewAvail();
 
     static board *B[DIMENSION][DIMENSION];
 

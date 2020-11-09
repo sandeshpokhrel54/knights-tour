@@ -26,13 +26,15 @@ void board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     else
         brush.setColor(Qt::gray);
 
+    //if square is available show green
+    if(available)
+        brush.setColor(Qt::green);
     //yellow if selected
     if(selected)
         brush.setColor(Qt::yellow);
 
-    //if square is available show green
-    if(available)
-        brush.setColor(Qt::green);
+    if(visited)
+        brush.setColor(Qt::blue);
 
     painter->fillRect(rec,brush);
     painter->drawRect(rec);
@@ -48,31 +50,39 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     //if knight is to move to an available spot...//logic here
 
-
-    if(!selected)
+    if(!selected && !visited)
     {
-        if(count>1)
-            return;
-        else
+
+        if(available)
         {
-            count++;
-            selected = true;
-            wholeBoard::availSpots(); //make spots available
+            count--;
+
         }
 
-    }
-    else
-    {
+        if(count>1)
+            return;
 
+        count++;
+        wholeBoard::renewAvail();
+        visited = true;
+        selected = true;
+        wholeBoard::availSpots();//make spots available
+
+    }
+
+    else if(selected)
+    {
+        visited = false;
         selected = false;
         count--;
         wholeBoard::unavailSpots();   //make spots unavailable
     }
 
 
+
+
     update();
     QGraphicsItem::mousePressEvent(event);
 }
-
 
 

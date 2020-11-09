@@ -43,7 +43,7 @@ void wholeBoard::availSpots()
         {
             //board piece's available spots are to be shown
 
-            if(B[i][j]->selected == true)
+            if(B[i][j]->selected)
             {
                 //use boundry and set available to true
                 //boundry:  - > 0, + < dimension
@@ -108,13 +108,6 @@ void wholeBoard::availSpots()
 
             }
 
-            //when spot is deselected, reset the board to have no available spots as well;
-//            else
-//            {
-
-//                //B[i][j]->available = false;
-//            }
-
             B[i][j]->update();
 
         }
@@ -133,6 +126,19 @@ void wholeBoard::unavailSpots()
     }
 }
 
+void wholeBoard::renewAvail()
+{
+    for(int i=0;i<DIMENSION;i++)
+    {
+        for(int j=0; j<DIMENSION; j++)
+        {
+            B[i][j]->selected = false;
+            B[i][j]->available = false;
+            B[i][j]->update();
+        }
+    }
+}
+
 
 
 void wholeBoard::placeKnight(int *posX, int *posY)
@@ -142,7 +148,7 @@ void wholeBoard::placeKnight(int *posX, int *posY)
     {
         for(int j=0; j<DIMENSION; j++)
         {
-            if(B[i][j]->selected == true)
+            if(B[i][j]->selected)
             {
                x = i * B[i][j]->eleSize;
                y = j * B[i][j]->eleSize;
@@ -160,6 +166,7 @@ void wholeBoard::resetBoard()
     {
         for(int j=0; j<DIMENSION; j++)
         {
+            B[i][j]->visited = false;
             B[i][j]->selected = false;
             B[i][j]->available = false;
             B[i][j]->update();
