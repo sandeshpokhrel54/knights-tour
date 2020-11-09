@@ -70,7 +70,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     }
 
-    else if(selected)
+    else if(selected && wholeBoard::score<1) //cannot unselect once selected
     {
         visited = false;
         selected = false;

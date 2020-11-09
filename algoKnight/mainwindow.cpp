@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
     scene =  new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
     Board.setupBoard(scene);
-}
+//    ui->scoreLabel->setText("Score: " + QString::number(Board.score));
 
+
+}
 
 
 MainWindow::~MainWindow()

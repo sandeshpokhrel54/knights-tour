@@ -1,6 +1,7 @@
 #include "wholeboard.h"
 
 board *wholeBoard::B[DIMENSION][DIMENSION]={};
+int wholeBoard::score = 0;
 
 //empty constructor
 wholeBoard::wholeBoard()
@@ -37,12 +38,12 @@ void wholeBoard::availSpots()
         //
     }
 
+    score++;
     for(int i=0; i<DIMENSION; i++)
     {
         for(int j=0; j<DIMENSION; j++)
         {
             //board piece's available spots are to be shown
-
             if(B[i][j]->selected)
             {
                 //use boundry and set available to true
@@ -121,6 +122,7 @@ void wholeBoard::unavailSpots()
         for(int j = 0; j<DIMENSION; j++)
         {
             B[i][j]->available = false;
+            score--;
             B[i][j]->update();
         }
     }
@@ -138,6 +140,7 @@ void wholeBoard::renewAvail()
         }
     }
 }
+
 
 
 

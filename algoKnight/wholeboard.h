@@ -9,6 +9,7 @@ class wholeBoard:public board
 
 public:
     wholeBoard();
+    static int score;
     void setupBoard(QGraphicsScene *scene);
     static void availSpots();
     static void unavailSpots();
