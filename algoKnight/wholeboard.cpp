@@ -33,12 +33,7 @@ void wholeBoard::setupBoard(QGraphicsScene *scene)
 
 void wholeBoard::availSpots()
 {
-    if(board::count == 1)
-    {
-        //
-    }
 
-    score++;
     for(int i=0; i<DIMENSION; i++)
     {
         for(int j=0; j<DIMENSION; j++)
@@ -122,7 +117,6 @@ void wholeBoard::unavailSpots()
         for(int j = 0; j<DIMENSION; j++)
         {
             B[i][j]->available = false;
-            score--;
             B[i][j]->update();
         }
     }
@@ -173,6 +167,7 @@ void wholeBoard::resetBoard()
             B[i][j]->selected = false;
             B[i][j]->available = false;
             B[i][j]->update();
+            wholeBoard::score = 0;
             board::count = 1;
         }
     }

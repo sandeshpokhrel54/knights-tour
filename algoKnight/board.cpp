@@ -66,15 +66,17 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
         wholeBoard::renewAvail();
         visited = true;
         selected = true;
+        wholeBoard::score++;
         wholeBoard::availSpots();//make spots available
 
     }
 
-    else if(selected && wholeBoard::score<1) //cannot unselect once selected
+    else if(selected && wholeBoard::score <= 1) //cannot unselect once selected
     {
         visited = false;
         selected = false;
         count--;
+        wholeBoard::score--;
         wholeBoard::unavailSpots();   //make spots unavailable
     }
 
