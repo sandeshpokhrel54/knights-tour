@@ -19,11 +19,13 @@ SOURCES += \
     board.cpp \
     main.cpp \
     mainwindow.cpp \
+    solvePath.cpp \
     wholeboard.cpp
 
 HEADERS += \
     board.h \
     mainwindow.h \
+    solvePath.h \
     wholeboard.h
 
 FORMS += \
@@ -33,3 +35,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    knight.qrc

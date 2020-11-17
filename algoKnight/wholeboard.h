@@ -4,7 +4,7 @@
 #define DIMENSION 8
 #include "board.h"
 
-class wholeBoard:public board
+class wholeBoard
 {
 
 public:
