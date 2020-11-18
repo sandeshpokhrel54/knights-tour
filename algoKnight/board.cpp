@@ -1,6 +1,7 @@
 #include "board.h"
 #include"wholeboard.h" //
-
+#include<QDebug>
+#include<QCursor>
 int board::count = 1;
 
 board::board()

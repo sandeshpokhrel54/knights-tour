@@ -5,8 +5,9 @@
 #include <QMainWindow>
 #include<QGraphicsScene>
 #include<iostream>
+#include <QPixmap>
 #include "wholeboard.h"
-
+#include "solvePath.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,10 +28,14 @@ private slots:
 
     void on_resetAll_clicked();
 
+
+    void on_autoSolve_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     wholeBoard Board;
+    solvePath path;
 
 };
 #endif // MAINWINDOW_H

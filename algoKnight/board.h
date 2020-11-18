@@ -5,6 +5,7 @@
 #include<QGraphicsItem>
 #include<QGraphicsScene>
 #include<QPainter>
+#include<QPointF>
 
 class board : public QGraphicsItem
 {
