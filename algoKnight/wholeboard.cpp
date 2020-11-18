@@ -137,7 +137,6 @@ void wholeBoard::renewAvail()
 
 
 
-
 void wholeBoard::placeKnight(int *posX, int *posY)
 {
     int x, y;
