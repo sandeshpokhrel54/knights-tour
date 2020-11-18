@@ -2,28 +2,35 @@
 #define SOLVEPATH_H
 #include<stdlib.h>
 #include<time.h>
+#include<QTimer>
 #include "wholeboard.h"
 #define N 8
-class solvePath
+class solvePath: public QObject
 {
+    Q_OBJECT
 private:
     int startX, startY;  //starting coordinate of the knight
     int currentX,currentY;  //current coordinate of the kngith
     int nextX, nextY;    //next coordinate of the knight
     int moveX[8];
     int moveY[8];
+    int moves = 0;
+    QTimer *timer;
 
 private:
 
-    bool findNextMove();           //warnsdeff's algorithm
     int getDegree(int x, int y);
     bool isEmpty(int x, int y);
     bool isInsideBoard(int x,int y);
 
 public:
     solvePath();
-    bool findKnightPath();
+    ~solvePath();
+    bool findKnightPath();   //warnsdeff's algorithm
     void showSolution();
+
+public slots:
+    bool findNextMove();
 
 };
 

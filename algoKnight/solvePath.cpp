@@ -4,7 +4,7 @@
 solvePath::solvePath():moveX{1,1,2,2,-1,-1,-2,-2}  //constructor
   ,moveY{2,-2,1,-1,2,-2,1,-1}
 {
-
+    timer = new QTimer(this);
 }
 
 bool solvePath::findNextMove()  //warnsdeff's algorithm
@@ -87,13 +87,19 @@ bool solvePath::findKnightPath()
     currentY=startY=0;
     wholeBoard::B[currentX][currentY]->visited=true;
     wholeBoard::B[currentX][currentY]->update();
-    for(int i=0;i<N*N-1;i++)
-        {
-            if(findNextMove()==0)
-               {
-                   return false;
-               }
-        }
+
+    if(moves<64)
+      {
+            connect(timer,SIGNAL(timeout()),this,SLOT(findNextMove()));
+            timer->start(1000);
+            moves++;
+      }
+     else
+      {
+            return false;
+      }
+
+
     return true;
 }
 
@@ -103,4 +109,9 @@ void solvePath::showSolution()
         {
 
         }
+}
+
+solvePath::~solvePath()
+{
+    delete timer;
 }
