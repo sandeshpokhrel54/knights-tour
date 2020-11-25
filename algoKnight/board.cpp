@@ -82,8 +82,6 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 
 
-
-
     update();
     QGraphicsItem::mousePressEvent(event);
 }

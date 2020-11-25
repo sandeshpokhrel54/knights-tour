@@ -21,8 +21,6 @@ MainWindow::~MainWindow()
 }
 
 
-
-
 void MainWindow::on_placeKnight_clicked()
 {
     //place knight function
