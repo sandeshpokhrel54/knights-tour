@@ -27,36 +27,36 @@ struct tree::Node{
 
 };
 
-void tree::sibblings(tree::Node *sibbling, tree::coords data, int noOfChild)
+void tree::sibblings(tree::Node *sibbling, int noOfChild, std::vector<coords> childInfo)
 {
     if(noOfChild > 0)
     {
+
+        sibbling->right = new Node(childInfo[noOfChild].x, childInfo[noOfChild].y);
         noOfChild--;
-        sibbling->right = new Node(data.x,data.y);
-        data.x++;
-        data.y++;
-        sibblings(sibbling->right, data, noOfChild);
+        childInfo.pop_back();
+        sibblings(sibbling->right, noOfChild,childInfo);
     }
 }
 
 
-void tree::traverseTilldata(Node *root, coords data, int noOfChild)
+void tree::traverseTilldata(Node *root, coords data, int noOfChild, std::vector<coords> childInfo)
 {
     if(root->position.x == data.x && root->position.y == data.y)
     {
         root->n = noOfChild;
         root->left = new Node({root->position.y+1, root->position.y+2}); //random data passed for now
-        sibblings(root->left,{root->left->position.y+1, root->left->position.y+2}, root->n-1); //4 to create 4 sibblings everytime
+        sibblings(root->left, root->n-2, childInfo); //4 to create 4 sibblings everytime
     }
 
     else if(root->left != NULL)
     {
-        traverseTilldata(root->left, data, noOfChild);
+        traverseTilldata(root->left, data, noOfChild, childInfo);
     }
 
     else if(root->right != NULL)
     {
-        traverseTilldata(root->right, data, noOfChild);
+        traverseTilldata(root->right, data, noOfChild, childInfo);
     }
 
 }
