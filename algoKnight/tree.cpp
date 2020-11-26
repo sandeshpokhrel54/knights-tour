@@ -40,22 +40,23 @@ void tree::sibblings(tree::Node *sibbling, tree::coords data, int noOfChild)
 }
 
 
-void tree::traverseTilldata(Node *root, coords data)
+void tree::traverseTilldata(Node *root, coords data, int noOfChild)
 {
     if(root->position.x == data.x && root->position.y == data.y)
     {
+        root->n = noOfChild;
         root->left = new Node({root->position.y+1, root->position.y+2}); //random data passed for now
-        sibblings(root->left,{root->left->position.y+1, root->left->position.y+2}, 4); //4 to create 4 sibblings
+        sibblings(root->left,{root->left->position.y+1, root->left->position.y+2}, root->n-1); //4 to create 4 sibblings everytime
     }
 
     else if(root->left != NULL)
     {
-        traverseTilldata(root->left, data);
+        traverseTilldata(root->left, data, noOfChild);
     }
 
     else if(root->right != NULL)
     {
-        traverseTilldata(root->right, data);
+        traverseTilldata(root->right, data, noOfChild);
     }
 
 }
@@ -71,11 +72,11 @@ void tree::deallocate(Node *root, coords popedData)
 
     else if(root->left != NULL)
     {
-        traverseTilldata(root->left, popedData);
+        deallocate(root->left, popedData);
     }
     else if(root->right != NULL)
     {
-        traverseTilldata(root->right, popedData);
+        deallocate(root->right, popedData);
     }
 }
 

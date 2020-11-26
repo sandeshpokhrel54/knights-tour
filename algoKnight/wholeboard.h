@@ -12,6 +12,7 @@ public:
     wholeBoard();
     static int score;
     static board *B[DIMENSION][DIMENSION];
+    static tree *pathTree;
 
     void setupBoard(QGraphicsScene *scene);
     static void availSpots();
