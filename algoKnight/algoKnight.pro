@@ -20,12 +20,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     solvePath.cpp \
+    tree.cpp \
     wholeboard.cpp
 
 HEADERS += \
     board.h \
     mainwindow.h \
     solvePath.h \
+    tree.h \
     wholeboard.h
 
 FORMS += \

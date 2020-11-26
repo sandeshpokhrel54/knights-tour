@@ -103,6 +103,9 @@ void wholeBoard::availSpots()
 
             }
 
+            //count the number of avail spots which gives no of child of our node
+            //store i,j value of the available spots
+
             B[i][j]->update();
 
         }
