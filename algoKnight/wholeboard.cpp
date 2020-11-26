@@ -3,6 +3,8 @@
 
 board *wholeBoard::B[DIMENSION][DIMENSION]={};
 int wholeBoard::score = 0;
+tree wholeBoard::pathTree;
+std::vector<tree::coords> wholeBoard::childInfo = {};
 
 //empty constructor
 wholeBoard::wholeBoard()
@@ -55,13 +57,14 @@ void wholeBoard::availSpots()
                  * i+1, j+2
                  */
                 if(score == 1){
-                    pathTree->root = new tree::Node(B[i][j]->positionX, B[i][j]->positionY);
+                    pathTree.root = new tree::Node(B[i][j]->positionX, B[i][j]->positionY);
                 }
 
                 //1                                  
                 if( i-2 >= 0 && j+1 < DIMENSION)
                 {
                     B[i-2][j+1]->available = true;
+                    childInfo.push_back({i-2, j+1});
                     childCount++;
                 }
 
@@ -69,6 +72,7 @@ void wholeBoard::availSpots()
                 if( i-2 >= 0 && j-1 >= 0)
                 {
                     B[i-2][j-1]->available = true;
+                    childInfo.push_back({i-2, j-1});
                     childCount++;
                 }
 
@@ -76,6 +80,7 @@ void wholeBoard::availSpots()
                 if( i-1 >= 0 && j-2 >= 0)
                 {
                     B[i-1][j-2]->available = true;
+                    childInfo.push_back({i-1, j-2});
                     childCount++;
                 }
 
@@ -83,6 +88,7 @@ void wholeBoard::availSpots()
                 if( i+1 < DIMENSION && j-2 >= 0)
                 {
                     B[i+1][j-2]->available = true;
+                    childInfo.push_back({i+1,j-2});
                     childCount++;
                 }
 
@@ -90,6 +96,7 @@ void wholeBoard::availSpots()
                 if( i+2 < DIMENSION && j+1 < DIMENSION)
                 {
                     B[i+2][j+1]->available = true;
+                    childInfo.push_back({i+2, j+1});
                     childCount++;
                 }
 
@@ -97,6 +104,7 @@ void wholeBoard::availSpots()
                 if( i+2 < DIMENSION && j-1 >= 0)
                 {
                     B[i+2][j-1]->available = true;
+                    childInfo.push_back({i+2, j-1});
                     childCount++;
                 }
 
@@ -104,6 +112,7 @@ void wholeBoard::availSpots()
                 if( i-1 >= 0 && j+2 < DIMENSION)
                 {
                     B[i-1][j+2]->available = true;
+                    childInfo.push_back({i-1, j+2});
                     childCount++;
                 }
 
@@ -111,10 +120,11 @@ void wholeBoard::availSpots()
                 if( i+1 < DIMENSION && j+2 < DIMENSION)
                 {
                     B[i+1][j+2]->available = true;
+                    childInfo.push_back({i+1, j+2});
                     childCount++;
                 }
 
-                pathTree->traverseTilldata(pathTree->root,{B[i][j]->positionX,B[i][j]->positionY}, childCount);
+                pathTree.traverseTilldata(pathTree.root,{B[i][j]->positionX,B[i][j]->positionY}, childCount, childInfo);
 
             }
             B[i][j]->update();

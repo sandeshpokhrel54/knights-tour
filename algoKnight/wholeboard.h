@@ -4,6 +4,7 @@
 #define DIMENSION 8
 #include "board.h"
 #include "tree.h"
+#include <vector>
 
 class wholeBoard
 {
@@ -12,7 +13,8 @@ public:
     wholeBoard();
     static int score;
     static board *B[DIMENSION][DIMENSION];
-    static tree *pathTree;
+    static tree pathTree;
+    static std::vector<tree::coords> childInfo;
 
     void setupBoard(QGraphicsScene *scene);
     static void availSpots();

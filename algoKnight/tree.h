@@ -16,7 +16,7 @@ public:
     void deallocate(Node *root, coords popedData);
     void deallocateSibs(Node *root);
     void traverse(Node *root);
-    Node *root;
+    Node *root = NULL;
 };
 
 #endif // TREE_H
