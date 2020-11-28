@@ -3,7 +3,7 @@
 #include<QDebug>
 #include<QCursor>
 int board::count = 1;
-
+bool board::preventselect=false;
 board::board()
 {
     pieceColor = true;
@@ -61,36 +61,25 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     if(!selected && !visited)
     {
-
-        if(available)
+     if(!preventselect || this->available)
         {
-            count--;
-
+            preventselect=true;
+            wholeBoard::renewAvail();
+            visited = true;
+            selected = true;
+            wholeBoard::availSpots();//make spots available
         }
-
-        if(count>1)
-            return;
-
-        count++;
-        wholeBoard::renewAvail();
-        visited = true;
-        selected = true;
-        wholeBoard::score++;
-        wholeBoard::availSpots();//make spots available
-
     }
 
-    else if(selected && wholeBoard::score <= 1) //cannot unselect once selected
+    //else if(selected && wholeBoard::score <= 1) //cannot unselect once selected
+    else if(selected && visited)
     {
+
         visited = false;
         selected = false;
-        count--;
-        wholeBoard::score--;
-        wholeBoard::unavailSpots();   //make spots unavailable
+        wholeBoard::deleteSq();  //pop
+        preventselect=wholeBoard::updatePreventselect();
     }
-
-
-
 
     update();
     QGraphicsItem::mousePressEvent(event);

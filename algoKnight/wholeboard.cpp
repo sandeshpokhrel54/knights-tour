@@ -1,14 +1,19 @@
 #include "wholeboard.h"
-
+#include "tree.cpp"
+#include<QDebug>
 board *wholeBoard::B[DIMENSION][DIMENSION]={};
 int wholeBoard::score = 0;
+tree wholeBoard::pathTree;
+std::vector<tree::coords> wholeBoard::childInfo = {};
+std::stack<tree::coords> wholeBoard::square;
 
-//empty constructor
-wholeBoard::wholeBoard()
+int wholeBoard::moveX[DIMENSION]={1,1,2,2,-1,-1,-2,-2};
+int wholeBoard::moveY[DIMENSION]={2,-2,1,-1,2,-2,1,-1};
+
+wholeBoard::wholeBoard() //constructor
 {
 
 }
-
 
 void wholeBoard::setupBoard(QGraphicsScene *scene)
 {
@@ -33,81 +38,96 @@ void wholeBoard::setupBoard(QGraphicsScene *scene)
 
 void wholeBoard::availSpots()
 {
-
+    int childCount = 0;
     for(int i=0; i<DIMENSION; i++)
     {
         for(int j=0; j<DIMENSION; j++)
         {
-            //board piece's available spots are to be shown
             if(B[i][j]->selected)
             {
-                //use boundry and set available to true
-                //boundry:  - > 0, + < dimension
-                //for all board objects if boundry doesn't exceed limit then available = true for
-                 /* i-2, j+1
-                 * i-2, j-1
-                 * i-1, j-2
-                 * i+1, j-2
-                 * i+2, j+1
-                 * i+2, j-1
-                 * i-1, j+2
-                 * i+1, j+2
-                 */
 
-                //1
-                if( i-2 >= 0 && j+1 < DIMENSION)
-                {
-                    B[i-2][j+1]->available = true;
-                }
+                 pathTree.root = new tree::Node(B[i][j]->positionX, B[i][j]->positionY);
+                 square.push(tree::coords(B[i][j]->positionX,B[i][j]->positionY));
 
-                //2
-                if( i-2 >= 0 && j-1 >= 0)
-                {
-                    B[i-2][j-1]->available = true;
-                }
 
-                //3
-                if( i-1 >= 0 && j-2 >= 0)
-                {
-                    B[i-1][j-2]->available = true;
-                }
+                 for(int k=0;k<DIMENSION;k++)
+                 {
+                     if(isInside(i+moveX[k],j+moveY[k]))
+                     {
+                          B[i+moveX[k]][j+moveY[k]]->available=true;
+                          childInfo.push_back({i,j});
+                          childCount++;
+                     }
+                 }
 
-                //4
-                if( i+1 < DIMENSION && j-2 >= 0)
-                {
-                    B[i+1][j-2]->available = true;
-                }
 
-                //5
-                if( i+2 < DIMENSION && j+1 < DIMENSION)
-                {
-                    B[i+2][j+1]->available = true;
-                }
-
-                //6
-                if( i+2 < DIMENSION && j-1 >= 0)
-                {
-                    B[i+2][j-1]->available = true;
-                }
-
-                //7
-                if( i-1 >= 0 && j+2 < DIMENSION)
-                {
-                    B[i-1][j+2]->available = true;
-                }
-
-                //8
-                if( i+1 < DIMENSION && j+2 < DIMENSION)
-                {
-                    B[i+1][j+2]->available = true;
-                }
+            pathTree.traverseTilldata(pathTree.root,{B[i][j]->positionX,B[i][j]->positionY}, childCount, childInfo);
 
             }
-
             B[i][j]->update();
 
         }
     }
+}
+bool wholeBoard::isInside(int x, int y)
+{
+    if((x>=0 && y>=0) && (x<DIMENSION && y<DIMENSION))
+         return true;
+    return false;
+}
+void wholeBoard::deleteSq()
+{
+    int i,j;
+    i=square.top().x;
+    j=square.top().y;   //first make available squares of top false  then pop
+    for(int k=0;k<DIMENSION;k++)
+    {
+        if(isInside(i+moveX[k],j+moveY[k]))
+        {
+             B[i+moveX[k]][j+moveY[k]]->available=false;
+             B[i+moveX[k]][j+moveY[k]]->update();
+
+        }
+    }
+    square.pop();
+    if(!square.empty())//if stack is not empty
+    {
+        i=square.top().x;
+        j=square.top().y;
+        B[i][j]->selected=true;
+        B[i][j]->visited=true;
+        B[i][j]->update();
+
+        for(int k=0;k<DIMENSION;k++)  //now make available squares of top true
+        {
+            if(isInside(i+moveX[k],j+moveY[k]))
+            {
+                 B[i+moveX[k]][j+moveY[k]]->available=true;
+                 B[i+moveX[k]][j+moveY[k]]->update();
+
+            }
+        }
+    }
+    else //if stack is empty
+    {
+       board::preventselect=false;
+       //maybe reset board and delete all data of tree
+    }
+
+    //tree node delete here
+}
+bool wholeBoard::updatePreventselect()
+{
+    for(int i=0;i<DIMENSION;i++)
+    {
+        for(int j=0;j<DIMENSION;j++)
+        {
+            if(B[i][j]->selected)
+                return true;
+
+        }
+    }
+    return false;
 }
 
 void wholeBoard::unavailSpots()
@@ -134,8 +154,6 @@ void wholeBoard::renewAvail()
         }
     }
 }
-
-
 
 void wholeBoard::placeKnight(int *posX, int *posY)
 {
@@ -165,12 +183,9 @@ void wholeBoard::resetBoard()
             B[i][j]->visited = false;
             B[i][j]->selected = false;
             B[i][j]->available = false;
+            board::preventselect=false;
             B[i][j]->update();
-            wholeBoard::score = 0;
-            board::count = 1;
         }
     }
 }
-
-
 

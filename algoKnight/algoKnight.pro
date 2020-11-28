@@ -17,15 +17,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     board.cpp \
+    bstree.cpp \
     main.cpp \
     mainwindow.cpp \
     solvePath.cpp \
+    tree.cpp \
     wholeboard.cpp
 
 HEADERS += \
     board.h \
+    bstree.h \
     mainwindow.h \
     solvePath.h \
+    tree.h \
     wholeboard.h
 
 FORMS += \

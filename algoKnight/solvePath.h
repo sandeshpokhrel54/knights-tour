@@ -4,6 +4,7 @@
 #include<time.h>
 #include<QTimer>
 #include "wholeboard.h"
+
 #define N 8
 class solvePath: public QObject
 {
@@ -14,9 +15,8 @@ private:
     int nextX, nextY;    //next coordinate of the knight
     int moveX[8];
     int moveY[8];
-    int moves = 0;
+    int moves;
     QTimer *timer;
-
 private:
 
     int getDegree(int x, int y);
@@ -25,9 +25,8 @@ private:
 
 public:
     solvePath();
-    ~solvePath();
-    bool findKnightPath();   //warnsdeff's algorithm
-    void showSolution();
+    void findKnightPath();   //warnsdeff's algorithm
+    void resetPath();
 
 public slots:
     bool findNextMove();

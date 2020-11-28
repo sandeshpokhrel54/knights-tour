@@ -1,41 +1,40 @@
 #include "solvePath.h"
-#include<unistd.h>
-
+#include<QDebug>
+#include "bstree.h"
 solvePath::solvePath():moveX{1,1,2,2,-1,-1,-2,-2}  //constructor
   ,moveY{2,-2,1,-1,2,-2,1,-1}
 {
-    timer = new QTimer(this);
+
+    moves=0;
 }
 
 bool solvePath::findNextMove()  //warnsdeff's algorithm
-{
-    srand(time(NULL));
-    int temp;
-    int minimumDegree=N+1;
-    int minimumDegreeIndex=-1;
+{ 
+        bstree b_tree;
+        int degree;
+        int moveIndex=-1;
+        int start = rand()%N;
+        std::cout<<start<<std::endl;
+        for(int count=0;count<N;count++)
+            {
+               int i = (start + count)%N;
+                nextX=currentX+moveX[i];
+                nextY=currentY+moveY[i];
+                if( isEmpty(nextX,nextY) )
+                    {
+                       degree=getDegree(nextX,nextY);
+                       moveIndex=i;
+                       b_tree.insert(degree,moveIndex);
+                     }
+             }
 
-    int start = rand()%N;
+      moveIndex=b_tree.smallest();
 
-    for(int count=0;count<N;count++)
-        {
-            int i = (start + count)%N;
-            nextX=currentX+moveX[i];
-            nextY=currentY+moveY[i];
-            if( (isEmpty(nextX,nextY))  && ((temp=getDegree(nextX,nextY)) < minimumDegree) )
-                {
-                    minimumDegreeIndex=i; //choose square index with minimum degree
-                    minimumDegree=temp;		//choose minimum degree;
+     if(moveIndex==-1)
+          return false;
 
-                }
-        }
-    if(minimumDegreeIndex==-1)
-         return false;
-
-    nextX=currentX+moveX[minimumDegreeIndex];
-    nextY=currentY+moveY[minimumDegreeIndex];
-
-    //pause sometime before executing
-    //......
+    nextX=currentX+moveX[moveIndex];
+    nextY=currentY+moveY[moveIndex];
 
 
     wholeBoard::B[nextX][nextY]->visited = wholeBoard::B[currentX][currentY]->visited;
@@ -47,6 +46,12 @@ bool solvePath::findNextMove()  //warnsdeff's algorithm
     currentX=nextX;
     currentY=nextY;
 
+    moves++;
+    if(moves==63)
+    {
+        timer->stop();
+
+    }
     return true;
 }
 
@@ -78,8 +83,9 @@ bool solvePath::isInsideBoard(int x, int y)
     return false;
 }
 
-bool solvePath::findKnightPath()
+void solvePath::findKnightPath()
 {
+    srand(time(nullptr));
     for(int i=0;i<N;i++)
     {
         for(int j=0;j<N;j++)
@@ -93,30 +99,15 @@ bool solvePath::findKnightPath()
     wholeBoard::B[currentX][currentY]->selected=true;
     wholeBoard::B[currentX][currentY]->update();
 
-    if(moves<64)
-      {
-            connect(timer,SIGNAL(timeout()),this,SLOT(findNextMove()));
-            timer->start(1000);
-            moves++;
-      }
-     else
-      {
-            return false;
-      }
+    timer = new QTimer(this);
+     connect(timer,SIGNAL(timeout()),this,SLOT(findNextMove()));
+     timer->start(100);
 
-
-    return true;
 }
 
-void solvePath::showSolution()
+void solvePath::resetPath()
 {
-    while (!(findKnightPath()))
-        {
-
-        }
-}
-
-solvePath::~solvePath()
-{
+    moves=0;
     delete timer;
 }
+
