@@ -20,6 +20,8 @@ void board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 {
     QRectF rec = boundingRect();
     QBrush brush(Qt::white);
+    QImage *knight1 = new QImage(":/img/image/knight.png");
+
 
     //drawing the rectangle black/white alternatively
     if(pieceColor)
@@ -31,14 +33,20 @@ void board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     if(available)
         brush.setColor(Qt::green);
     //yellow if selected
-    if(selected)
-        brush.setColor(Qt::yellow);
 
     if(visited)
         brush.setColor(Qt::blue);
 
     painter->fillRect(rec,brush);
     painter->drawRect(rec);
+
+    if(selected){
+        brush.setColor(Qt::yellow);
+        painter->drawImage(rec,*knight1);
+        painter->drawRect(rec);
+
+
+}
 }
 
 
