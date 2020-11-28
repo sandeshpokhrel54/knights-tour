@@ -15,6 +15,7 @@ public:
     bool pieceColor;
     int positionX, positionY;
     bool selected = false;
+    static bool preventselect;
     static int count;
     bool available = false;
     bool visited = false;

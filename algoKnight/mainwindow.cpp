@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "board.h"
+#include"wholeboard.h"
+#include<QDebug>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -40,10 +42,11 @@ void MainWindow::on_placeKnight_clicked()
 void MainWindow::on_resetAll_clicked()
 {
     Board.resetBoard();
+    path.resetPath();
 }
 
 
 void MainWindow::on_autoSolve_clicked()
 {
-    path.showSolution();
+    path.findKnightPath();
 }

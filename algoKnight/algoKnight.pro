@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     board.cpp \
+    bstree.cpp \
     main.cpp \
     mainwindow.cpp \
     solvePath.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 
 HEADERS += \
     board.h \
+    bstree.h \
     mainwindow.h \
     solvePath.h \
     tree.h \
