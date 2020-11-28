@@ -37,7 +37,11 @@ bool solvePath::findNextMove()  //warnsdeff's algorithm
     //pause sometime before executing
     //......
 
+
     wholeBoard::B[nextX][nextY]->visited = wholeBoard::B[currentX][currentY]->visited;
+    wholeBoard::B[nextX][nextY]->selected= wholeBoard::B[currentX][currentY]->visited;
+    wholeBoard::B[currentX][currentY]->selected = false;
+    wholeBoard::B[currentX][currentY]->update();
     wholeBoard::B[nextX][nextY]->update();
 
     currentX=nextX;
@@ -86,6 +90,7 @@ bool solvePath::findKnightPath()
     currentX=startX=0;
     currentY=startY=0;
     wholeBoard::B[currentX][currentY]->visited=true;
+    wholeBoard::B[currentX][currentY]->selected=true;
     wholeBoard::B[currentX][currentY]->update();
 
     if(moves<64)
