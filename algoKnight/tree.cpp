@@ -26,12 +26,13 @@ tree::tree(int xval, int yval)
     root = new tree::Node(xval,yval);
 }
 
-void tree::sibblings(tree::Node *sibbling, int noOfChild, std::vector<coords> childInfo)
+void tree::sibblings(tree::Node *sibbling, int noOfChild, std::vector<coords> &childInfo)
 {
     if(noOfChild >= 0)
     {
 
         sibbling->right = new Node(childInfo[noOfChild].x, childInfo[noOfChild].y);
+//        std::cout<<childInfo[noOfChild].x<<std::endl;
         noOfChild--;
         childInfo.pop_back();
         sibblings(sibbling->right, noOfChild,childInfo);
@@ -39,14 +40,15 @@ void tree::sibblings(tree::Node *sibbling, int noOfChild, std::vector<coords> ch
 }
 
 
-void tree::traverseTilldata(Node *root, coords data, int noOfChild, std::vector<coords> childInfo)
+void tree::traverseTilldata(Node *root, coords data, int noOfChild, std::vector<coords> &childInfo)
 {
 
     if(root->position.x == data.x && root->position.y == data.y)
     {
-        std::cout<<"pasyo lasan "<<noOfChild<<std::endl;
+//        std::cout<<"pasyo lasan "<<noOfChild<<std::endl;
         root->n = noOfChild;
         root->left = new Node(childInfo[noOfChild-1].x, childInfo[noOfChild-1].y);
+        childInfo.pop_back();
         sibblings(root->left, root->n - 2 , childInfo);
 
 
@@ -54,13 +56,13 @@ void tree::traverseTilldata(Node *root, coords data, int noOfChild, std::vector<
 
     else if(root->left != NULL)
     {
-        std::cout<<"left turn"<<std::endl;
+//        std::cout<<"left turn"<<std::endl;
         traverseTilldata(root->left, data, noOfChild, childInfo);
     }
 
     else if(root->right != NULL)
     {
-        std::cout<<"right turn"<<std::endl;
+//        std::cout<<"right turn"<<std::endl;
         traverseTilldata(root->right, data, noOfChild, childInfo);
     }
 
@@ -97,29 +99,32 @@ void tree::deallocateSibs(Node *root)
 
 void tree::traverse(Node *root)
 {
-// //    traversal of all selected nodes
-//    if(root == NULL)
-//        return;
-//    if(root->left != NULL){
-//        std::cout<<"rootposx"<<root->position.x<<" ";
-//        std::cout<<"rootposy"<<root->position.y<<std::endl;
-//    }
-//    traverse(root->left);
-//    traverse(root->right);
+ //    traversal of all selected nodes
 
-//    traversal of whole tree
+
     if(root == NULL)
-    {
         return;
+    if(root->left != NULL){
+        std::cout<<"rootposx-> "<<root->position.x<<" ";
+        std::cout<<"rootposy-> "<<root->position.y<<std::endl;
     }
     traverse(root->left);
-    std::cout<<"node x"<<root->position.x<<" ";
-    std::cout<<"node y"<<root->position.y<<std::endl;
     traverse(root->right);
 
-
-
+// //    traversal of whole tree
+//    if(root == NULL)
+//    {
+//        return;
+//    }
+//    traverse(root->left);
+//    std::cout<<"node x"<<root->position.x<<" ";
+//    std::cout<<"node y"<<root->position.y<<std::endl;
+//    traverse(root->right);
 }
 
+void animatedTraversal()
+{
+
+}
 
 

@@ -48,7 +48,7 @@ void wholeBoard::availSpots()
         {
             if(B[i][j]->selected)
             {
-                std::cout<<"user selected" <<B[i][j]->positionX<<" "<<B[i][j]->positionY<<std::endl;
+//                std::cout<<"user selected" <<B[i][j]->positionX<<" "<<B[i][j]->positionY<<std::endl;
 
 //                 pathTree.root = new tree::Node(B[i][j]->positionX, B[i][j]->positionY);
                  square.push(tree::coords(B[i][j]->positionX,B[i][j]->positionY));
@@ -59,7 +59,7 @@ void wholeBoard::availSpots()
                      {
                           B[i+moveX[k]][j+moveY[k]]->available=true;
                           childInfo.push_back({i+moveX[k],j+moveY[k]});
-                          std::cout<<"available: "<<i+moveX[k]<<" "<<j+moveY[k]<<std::endl;
+//                          std::cout<<"available: "<<i+moveX[k]<<" "<<j+moveY[k]<<std::endl;
                           childCount++;
 
                      }
@@ -136,10 +136,11 @@ void wholeBoard::deleteSq()
 
 void wholeBoard::traverseTree()
 {
-
-    std::cout<<"score: "<<score<<std::endl;
+    resetBoard();
+//    std::cout<<"score: "<<score<<std::endl;
 //    std::cout<<pathTree->root->position.x<<std::endl;
     pathTree->traverse(pathTree->root);
+
 }
 
 bool wholeBoard::updatePreventselect()
@@ -191,6 +192,7 @@ void wholeBoard::resetBoard()
             B[i][j]->selected = false;
             B[i][j]->available = false;
             board::preventselect=false;
+            wholeBoard::score = 0;
             B[i][j]->update();
         }
     }
