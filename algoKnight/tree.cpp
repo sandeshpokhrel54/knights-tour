@@ -1,10 +1,4 @@
 #include "tree.h"
-
-tree::tree()
-{
-
-}
-
 struct tree::coords{
     int x,y;
     coords(int a = 0, int b = 0):x{a},y{b}
@@ -13,7 +7,6 @@ struct tree::coords{
     }
 
 };
-
 struct tree::Node{
 
     int n; //no of childs
@@ -27,9 +20,15 @@ struct tree::Node{
 
 };
 
+
+tree::tree(int xval, int yval)
+{
+    root = new tree::Node(xval,yval);
+}
+
 void tree::sibblings(tree::Node *sibbling, int noOfChild, std::vector<coords> childInfo)
 {
-    if(noOfChild > 0)
+    if(noOfChild >= 0)
     {
 
         sibbling->right = new Node(childInfo[noOfChild].x, childInfo[noOfChild].y);
@@ -42,20 +41,26 @@ void tree::sibblings(tree::Node *sibbling, int noOfChild, std::vector<coords> ch
 
 void tree::traverseTilldata(Node *root, coords data, int noOfChild, std::vector<coords> childInfo)
 {
+
     if(root->position.x == data.x && root->position.y == data.y)
     {
+        std::cout<<"pasyo lasan "<<noOfChild<<std::endl;
         root->n = noOfChild;
-        root->left = new Node({root->position.y+1, root->position.y+2}); //random data passed for now
-        sibblings(root->left, root->n-2, childInfo); //4 to create 4 sibblings everytime
+        root->left = new Node(childInfo[noOfChild-1].x, childInfo[noOfChild-1].y);
+        sibblings(root->left, root->n - 2 , childInfo);
+
+
     }
 
     else if(root->left != NULL)
     {
+        std::cout<<"left turn"<<std::endl;
         traverseTilldata(root->left, data, noOfChild, childInfo);
     }
 
     else if(root->right != NULL)
     {
+        std::cout<<"right turn"<<std::endl;
         traverseTilldata(root->right, data, noOfChild, childInfo);
     }
 
@@ -92,14 +97,28 @@ void tree::deallocateSibs(Node *root)
 
 void tree::traverse(Node *root)
 {
+// //    traversal of all selected nodes
+//    if(root == NULL)
+//        return;
+//    if(root->left != NULL){
+//        std::cout<<"rootposx"<<root->position.x<<" ";
+//        std::cout<<"rootposy"<<root->position.y<<std::endl;
+//    }
+//    traverse(root->left);
+//    traverse(root->right);
+
+//    traversal of whole tree
     if(root == NULL)
+    {
         return;
-    if(root->left != NULL){
-        //std::cout<<root->position.x;
-        //std::cout<<root->position.y;
     }
     traverse(root->left);
+    std::cout<<"node x"<<root->position.x<<" ";
+    std::cout<<"node y"<<root->position.y<<std::endl;
     traverse(root->right);
+
+
+
 }
 
 

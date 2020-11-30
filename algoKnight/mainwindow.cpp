@@ -23,21 +23,6 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_placeKnight_clicked()
-{
-    //place knight function
-    //get positionX and positionY for the image to be place
-   int posX, posY;
-//    Board.placeKnight(&posX,&posY);
-    //std::cout<<posX;
-    QGraphicsPixmapItem *knight = new QGraphicsPixmapItem(QPixmap(":/img/image/knight.png"));
-    scene->addItem(knight);
-   knight->setPos(0,-10);
-   knight->setZValue(0.1);
-
-}
-
-
 
 void MainWindow::on_resetAll_clicked()
 {
@@ -49,4 +34,10 @@ void MainWindow::on_resetAll_clicked()
 void MainWindow::on_autoSolve_clicked()
 {
     path.findKnightPath();
+}
+
+void MainWindow::on_recap_clicked()
+{
+    //call function to traverse tree from wholeboard.cpp
+    Board.traverseTree();
 }

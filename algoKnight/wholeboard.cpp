@@ -1,11 +1,14 @@
 #include "wholeboard.h"
 #include "tree.cpp"
-#include<QDebug>
+#include<iostream>
+
 board *wholeBoard::B[DIMENSION][DIMENSION]={};
 int wholeBoard::score = 0;
-tree wholeBoard::pathTree;
+tree *wholeBoard::pathTree = new tree;
+//tree::Node *wholeBoard::root = new tree::Node(0,0);
 std::vector<tree::coords> wholeBoard::childInfo = {};
 std::stack<tree::coords> wholeBoard::square;
+
 
 int wholeBoard::moveX[DIMENSION]={1,1,2,2,-1,-1,-2,-2};
 int wholeBoard::moveY[DIMENSION]={2,-2,1,-1,2,-2,1,-1};
@@ -45,35 +48,49 @@ void wholeBoard::availSpots()
         {
             if(B[i][j]->selected)
             {
+                std::cout<<"user selected" <<B[i][j]->positionX<<" "<<B[i][j]->positionY<<std::endl;
 
-                 pathTree.root = new tree::Node(B[i][j]->positionX, B[i][j]->positionY);
+//                 pathTree.root = new tree::Node(B[i][j]->positionX, B[i][j]->positionY);
                  square.push(tree::coords(B[i][j]->positionX,B[i][j]->positionY));
-
 
                  for(int k=0;k<DIMENSION;k++)
                  {
-                     if(isInside(i+moveX[k],j+moveY[k]))
+                     if(isInside(i+moveX[k],j+moveY[k]) && isVisited(i+moveX[k],j+moveY[k]))
                      {
                           B[i+moveX[k]][j+moveY[k]]->available=true;
-                          childInfo.push_back({i,j});
+                          childInfo.push_back({i+moveX[k],j+moveY[k]});
+                          std::cout<<"available: "<<i+moveX[k]<<" "<<j+moveY[k]<<std::endl;
                           childCount++;
+
                      }
                  }
 
+                if(score <= 1){
+                     pathTree->root->position.x = B[i][j]->positionX;
+                     pathTree->root->position.y = B[i][j]->positionY;
+                }
 
-            pathTree.traverseTilldata(pathTree.root,{B[i][j]->positionX,B[i][j]->positionY}, childCount, childInfo);
-
+                pathTree->traverseTilldata(pathTree->root, tree::coords(B[i][j]->positionX, B[i][j]->positionY), childCount, childInfo);
             }
             B[i][j]->update();
 
         }
     }
 }
+
 bool wholeBoard::isInside(int x, int y)
 {
     if((x>=0 && y>=0) && (x<DIMENSION && y<DIMENSION))
          return true;
     return false;
+}
+
+bool wholeBoard::isVisited(int x, int y)
+{
+    if(B[x][y]->visited)
+        return false;
+    else
+        return true;
 }
 void wholeBoard::deleteSq()
 {
@@ -116,6 +133,15 @@ void wholeBoard::deleteSq()
 
     //tree node delete here
 }
+
+void wholeBoard::traverseTree()
+{
+
+    std::cout<<"score: "<<score<<std::endl;
+//    std::cout<<pathTree->root->position.x<<std::endl;
+    pathTree->traverse(pathTree->root);
+}
+
 bool wholeBoard::updatePreventselect()
 {
     for(int i=0;i<DIMENSION;i++)
@@ -153,25 +179,6 @@ void wholeBoard::renewAvail()
             B[i][j]->update();
         }
     }
-}
-
-void wholeBoard::placeKnight(int *posX, int *posY)
-{
-    int x, y;
-    for(int i=0; i<DIMENSION; i++)
-    {
-        for(int j=0; j<DIMENSION; j++)
-        {
-            if(B[i][j]->selected)
-            {
-               x = i * B[i][j]->eleSize;
-               y = j * B[i][j]->eleSize;
-            }
-        }
-    }
-    *posX = x;
-    *posY = y;
-
 }
 
 void wholeBoard::resetBoard()

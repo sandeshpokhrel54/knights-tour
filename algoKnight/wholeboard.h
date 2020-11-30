@@ -17,7 +17,8 @@ public:
     static board *B[DIMENSION][DIMENSION];
     static int moveX[DIMENSION];
     static int moveY[DIMENSION];
-    static tree pathTree;
+    static tree *pathTree;
+//    static tree::Node *root;
     static std::vector<tree::coords> childInfo;
 
     void setupBoard(QGraphicsScene *scene);
@@ -26,9 +27,11 @@ public:
     static void renewAvail();
     static bool isInside(int x,int y);
     static bool updatePreventselect();
-    void placeKnight(int *posX, int *posY);
+    static bool isVisited(int x, int y);
     void resetBoard();
     static void deleteSq();
+
+    void traverseTree();
 
 };
 

@@ -22,14 +22,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_placeKnight_clicked();
-
-
 
     void on_resetAll_clicked();
 
 
     void on_autoSolve_clicked();
+
+    void on_recap_clicked();
 
 private:
     Ui::MainWindow *ui;

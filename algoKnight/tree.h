@@ -7,7 +7,7 @@
 class tree
 {
 public:
-    tree();
+    tree(int xval = 0, int yval = 0);
     //for tree structure
     struct coords;
     struct Node;
