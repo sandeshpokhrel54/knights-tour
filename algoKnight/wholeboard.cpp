@@ -136,11 +136,10 @@ void wholeBoard::deleteSq()
 
 void wholeBoard::traverseTree()
 {
-    resetBoard();
-//    std::cout<<"score: "<<score<<std::endl;
+    resetToRecap();
+    std::cout<<"score: "<<score<<std::endl;
 //    std::cout<<pathTree->root->position.x<<std::endl;
     pathTree->traverse(pathTree->root);
-
 }
 
 bool wholeBoard::updatePreventselect()
@@ -198,3 +197,16 @@ void wholeBoard::resetBoard()
     }
 }
 
+void wholeBoard::resetToRecap(){
+    for(int i = 0; i<DIMENSION; i++)
+    {
+        for(int j=0; j<DIMENSION; j++)
+        {
+            B[i][j]->visited = false;
+            B[i][j]->selected = false;
+            B[i][j]->available = false;
+            board::preventselect=false;
+            B[i][j]->update();
+        }
+    }
+}

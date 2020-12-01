@@ -1,4 +1,5 @@
 #include "tree.h"
+#include "wholeboard.h"
 struct tree::coords{
     int x,y;
     coords(int a = 0, int b = 0):x{a},y{b}
@@ -100,19 +101,22 @@ void tree::deallocateSibs(Node *root)
 void tree::traverse(Node *root)
 {
  //    traversal of all selected nodes
-
-
     if(root == NULL)
         return;
     if(root->left != NULL){
         std::cout<<"rootposx-> "<<root->position.x<<" ";
         std::cout<<"rootposy-> "<<root->position.y<<std::endl;
+        wholeBoard::B[root->position.x][root->position.y]->visited = true;
+        wholeBoard::B[root->position.x][root->position.y]->update();
+        delay();
+
     }
+
     traverse(root->left);
     traverse(root->right);
 
 // //    traversal of whole tree
-//    if(root == NULL)
+//    if(root == NULL).
 //    {
 //        return;
 //    }
@@ -120,11 +124,16 @@ void tree::traverse(Node *root)
 //    std::cout<<"node x"<<root->position.x<<" ";
 //    std::cout<<"node y"<<root->position.y<<std::endl;
 //    traverse(root->right);
+
 }
 
-void animatedTraversal()
+
+
+
+//very heavy function but couldn't find a better alternative
+void tree::delay()
 {
-
+    QTime dieTime= QTime::currentTime().addMSecs(500);
+    while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
-
-

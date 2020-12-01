@@ -3,11 +3,14 @@
 
 #include<iostream>
 #include<vector>
-#include<QTimer>
+#include<queue>
+#include<QCoreApplication>
+#include<QTime>
 
-class tree:public QObject
+
+class tree
 {
-    Q_OBJECT
+
 public:
     tree(int xval = 0, int yval = 0);
     //for tree structure
@@ -19,10 +22,7 @@ public:
     void deallocateSibs(Node *root);
     void traverse(Node *root);
     Node *root = NULL;
-    QTimer *tim;
-
-    void animatedTraversal();
-
+    void delay();
 
 };
 

@@ -6,7 +6,6 @@
 #include "tree.h"
 #include <vector>
 #include<stack>
-#include<QTimer>
 
 class wholeBoard
 {
@@ -30,6 +29,7 @@ public:
     static bool updatePreventselect();
     static bool isVisited(int x, int y);
     void resetBoard();
+    void resetToRecap();
     static void deleteSq();
 
     void traverseTree();

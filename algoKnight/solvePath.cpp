@@ -100,8 +100,8 @@ void solvePath::findKnightPath()
     wholeBoard::B[currentX][currentY]->update();
 
     timer = new QTimer(this);
-     connect(timer,SIGNAL(timeout()),this,SLOT(findNextMove()));
-     timer->start(100);
+    connect(timer,SIGNAL(timeout()),this,SLOT(findNextMove()));
+    timer->start(100);
 
 }
 
