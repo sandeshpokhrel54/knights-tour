@@ -106,6 +106,7 @@ void tree::traverse(Node *root)
     if(root->left != NULL){
         std::cout<<"rootposx-> "<<root->position.x<<" ";
         std::cout<<"rootposy-> "<<root->position.y<<std::endl;
+        wholeBoard::score++;
         wholeBoard::B[root->position.x][root->position.y]->visited = true;
         wholeBoard::B[root->position.x][root->position.y]->selected = true;
         wholeBoard::B[root->position.x][root->position.y]->update();

@@ -118,10 +118,12 @@ void wholeBoard::deleteSq()
     temp = pathTree->searchNode(temp,square.top());
     pathTree->deallocate(temp,square.top());
     square.pop();
-    temp = pathTree->searchNode(pathTree->root,square.top());
+
 
     if(!square.empty())//if stack is not empty
     {
+        temp = pathTree->searchNode(pathTree->root,square.top());
+
         i=square.top().x;
         j=square.top().y;
         B[i][j]->selected=true;
@@ -140,8 +142,10 @@ void wholeBoard::deleteSq()
     }
     else //if stack is empty
     {
-       board::preventselect=false;
-       //maybe reset board and delete all data of tree
+       board::preventselect = false;
+
+       pathTree->deleteAll(pathTree->root->left);
+       temp = pathTree->root;
     }
 
     //tree node delete here
@@ -153,6 +157,7 @@ void wholeBoard::traverseTree()
     resetToRecap();
     std::cout<<"score: "<<score<<std::endl;
 //    std::cout<<pathTree->root->position.x<<std::endl;
+    score = 0;
     pathTree->traverse(pathTree->root);
 }
 
@@ -197,6 +202,7 @@ void wholeBoard::renewAvail()
 
 void wholeBoard::resetBoard()
 {
+    //the board
     for(int i = 0; i<DIMENSION; i++)
     {
         for(int j=0; j<DIMENSION; j++)
@@ -206,13 +212,18 @@ void wholeBoard::resetBoard()
             B[i][j]->available = false;
             board::preventselect=false;            
             B[i][j]->update();
-            //reset the tree as well
         }
     }
+
+    //the tree
     score = 0;
     first=true;
     pathTree->deleteAll(pathTree->root->left);
-    temp=pathTree->root;
+    temp = pathTree->root;
+
+    //the stack
+    while(!square.empty())
+        square.pop();
 }
 
 void wholeBoard::resetToRecap(){

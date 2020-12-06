@@ -47,6 +47,7 @@ bool solvePath::findNextMove()  //warnsdeff's algorithm
     currentY=nextY;
 
     moves++;
+    wholeBoard::score++;
     if(moves==63)
     {
         timer->stop();
@@ -98,10 +99,10 @@ void solvePath::findKnightPath()
     wholeBoard::B[currentX][currentY]->visited=true;
     wholeBoard::B[currentX][currentY]->selected=true;
     wholeBoard::B[currentX][currentY]->update();
-
+    wholeBoard::score++;
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(findNextMove()));
-    timer->start(1000);
+    timer->start(100);
 
 }
 
