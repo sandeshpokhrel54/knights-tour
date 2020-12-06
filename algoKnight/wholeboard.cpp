@@ -204,13 +204,15 @@ void wholeBoard::resetBoard()
             B[i][j]->visited = false;
             B[i][j]->selected = false;
             B[i][j]->available = false;
-            board::preventselect=false;
-            wholeBoard::score = 0;
+            board::preventselect=false;            
             B[i][j]->update();
-
             //reset the tree as well
         }
     }
+    score = 0;
+    first=true;
+    pathTree->deleteAll(pathTree->root->left);
+    temp=pathTree->root;
 }
 
 void wholeBoard::resetToRecap(){

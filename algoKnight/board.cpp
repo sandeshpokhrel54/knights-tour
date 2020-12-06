@@ -18,10 +18,15 @@ QRectF board::boundingRect() const
 
 void board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+
     QRectF rec = boundingRect();
     QBrush brush(Qt::white);
     QImage *knight1 = new QImage(":/img/image/knight.png");
 
+    QFont font;
+    font.setBold(true);
+    font.setPixelSize(12);
+    painter->setFont(font);
 
     //drawing the rectangle black/white alternatively
     if(pieceColor)
@@ -35,8 +40,10 @@ void board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     //yellow if selected
 
     if(visited)
+    {
         brush.setColor(Qt::blue);
-
+//        painter->drawText(rec, Qt::AlignTop|Qt::AlignLeft ,QString::number(wholeBoard::score));
+    }
     painter->fillRect(rec,brush);
     painter->drawRect(rec);
 
@@ -44,7 +51,7 @@ void board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
         brush.setColor(Qt::yellow);
         painter->drawImage(rec,*knight1);
         painter->drawRect(rec);
-
+        painter->drawText(rec, Qt::AlignTop|Qt::AlignLeft ,QString::number(wholeBoard::score));
 
 }
 }
@@ -67,7 +74,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
             wholeBoard::renewAvail();
             visited = true;
             selected = true;
-            //wholeBoard::score++;
+            wholeBoard::score++;
             wholeBoard::availSpots();//make spots available
         }
     }

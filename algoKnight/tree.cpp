@@ -116,16 +116,6 @@ void tree::traverse(Node *root)
     traverse(root->left);
     traverse(root->right);
 
-// //    traversal of whole tree
-//    if(root == NULL).
-//    {
-//        return;
-//    }
-//    traverse(root->left);
-//    std::cout<<"node x"<<root->position.x<<" ";
-//    std::cout<<"node y"<<root->position.y<<std::endl;
-//    traverse(root->right);
-
 }
 
 tree::Node *tree::searchNode(Node* temptr,coords temp)
@@ -142,6 +132,16 @@ tree::Node *tree::searchNode(Node* temptr,coords temp)
         searchNode(temptr->right,temp);
     }
     return retptr;
+}
+
+void tree::deleteAll(tree::Node *root)
+{
+    if(root!=NULL) {
+        deleteAll(root->left);
+        deleteAll(root->right);
+        delete root;
+        root = NULL;
+    }
 }
 
 //very heavy function but couldn't find a better alternative

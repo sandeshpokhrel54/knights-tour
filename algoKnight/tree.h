@@ -21,6 +21,7 @@ public:
     void deallocateSibs(Node *root);
     void traverse(Node *root);
     Node* searchNode(Node* temptr,coords temp);
+    void deleteAll(Node *root);
     Node *root;
     Node *retptr;
     void delay();
