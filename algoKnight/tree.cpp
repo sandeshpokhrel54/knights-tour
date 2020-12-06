@@ -101,12 +101,14 @@ void tree::deallocateSibs(Node *root)
 void tree::traverse(Node *root)
 {
  //    traversal of all selected nodes
+//    std::cout<<"hglas";
     if(root == NULL)
         return;
     if(root->left != NULL){
         std::cout<<"rootposx-> "<<root->position.x<<" ";
         std::cout<<"rootposy-> "<<root->position.y<<std::endl;
         wholeBoard::B[root->position.x][root->position.y]->visited = true;
+        wholeBoard::B[root->position.x][root->position.y]->selected = true;
         wholeBoard::B[root->position.x][root->position.y]->update();
         delay();
 
@@ -125,6 +127,22 @@ void tree::traverse(Node *root)
 //    std::cout<<"node y"<<root->position.y<<std::endl;
 //    traverse(root->right);
 
+}
+
+tree::Node *tree::searchNode(Node* temptr,coords temp)
+{
+    if(temptr->position.x==temp.x && temptr->position.y==temp.y)
+    {
+        retptr=temptr;
+    }
+    else if (temptr->left!=nullptr) {
+        searchNode(temptr->left,temp);
+    }
+    else if(temptr->right!=nullptr)
+    {
+        searchNode(temptr->right,temp);
+    }
+    return retptr;
 }
 
 

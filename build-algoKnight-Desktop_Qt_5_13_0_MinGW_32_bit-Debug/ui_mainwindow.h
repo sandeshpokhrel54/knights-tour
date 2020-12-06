@@ -28,7 +28,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QGraphicsView *graphicsView;
-    QPushButton *placeKnight;
+    QPushButton *recap;
     QPushButton *autoSolve;
     QPushButton *resetAll;
     QMenuBar *menubar;
@@ -53,10 +53,10 @@ public:
 
         verticalLayout->addWidget(graphicsView);
 
-        placeKnight = new QPushButton(centralwidget);
-        placeKnight->setObjectName(QString::fromUtf8("placeKnight"));
+        recap = new QPushButton(centralwidget);
+        recap->setObjectName(QString::fromUtf8("recap"));
 
-        verticalLayout->addWidget(placeKnight);
+        verticalLayout->addWidget(recap);
 
         autoSolve = new QPushButton(centralwidget);
         autoSolve->setObjectName(QString::fromUtf8("autoSolve"));
@@ -88,7 +88,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Royal Tour", nullptr));
-        placeKnight->setText(QCoreApplication::translate("MainWindow", "placeKnight", nullptr));
+        recap->setText(QCoreApplication::translate("MainWindow", "Recap", nullptr));
         autoSolve->setText(QCoreApplication::translate("MainWindow", "autoSolve", nullptr));
         resetAll->setText(QCoreApplication::translate("MainWindow", "resetAll", nullptr));
     } // retranslateUi

@@ -67,7 +67,7 @@ void board::mousePressEvent(QGraphicsSceneMouseEvent *event)
             wholeBoard::renewAvail();
             visited = true;
             selected = true;
-            wholeBoard::score++;
+            //wholeBoard::score++;
             wholeBoard::availSpots();//make spots available
         }
     }

@@ -101,7 +101,7 @@ void solvePath::findKnightPath()
 
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(findNextMove()));
-    timer->start(100);
+    timer->start(1000);
 
 }
 

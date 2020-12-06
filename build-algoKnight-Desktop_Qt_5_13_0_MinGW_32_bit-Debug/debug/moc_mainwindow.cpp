@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[5];
-    char stringdata0[76];
+    char stringdata0[70];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,14 +33,14 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 22), // "on_placeKnight_clicked"
-QT_MOC_LITERAL(2, 34, 0), // ""
-QT_MOC_LITERAL(3, 35, 19), // "on_resetAll_clicked"
-QT_MOC_LITERAL(4, 55, 20) // "on_autoSolve_clicked"
+QT_MOC_LITERAL(1, 11, 19), // "on_resetAll_clicked"
+QT_MOC_LITERAL(2, 31, 0), // ""
+QT_MOC_LITERAL(3, 32, 20), // "on_autoSolve_clicked"
+QT_MOC_LITERAL(4, 53, 16) // "on_recap_clicked"
 
     },
-    "MainWindow\0on_placeKnight_clicked\0\0"
-    "on_resetAll_clicked\0on_autoSolve_clicked"
+    "MainWindow\0on_resetAll_clicked\0\0"
+    "on_autoSolve_clicked\0on_recap_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -76,9 +76,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_placeKnight_clicked(); break;
-        case 1: _t->on_resetAll_clicked(); break;
-        case 2: _t->on_autoSolve_clicked(); break;
+        case 0: _t->on_resetAll_clicked(); break;
+        case 1: _t->on_autoSolve_clicked(); break;
+        case 2: _t->on_recap_clicked(); break;
         default: ;
         }
     }

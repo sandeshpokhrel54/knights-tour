@@ -14,11 +14,13 @@ public:
     static std::stack <tree::coords> square;
     wholeBoard();
     static int score;
+    static bool first;
     static board *B[DIMENSION][DIMENSION];
     static int moveX[DIMENSION];
     static int moveY[DIMENSION];
     static tree *pathTree;
 //    static tree::Node *root;
+    static tree::Node *temp;
     static std::vector<tree::coords> childInfo;
 
     void setupBoard(QGraphicsScene *scene);

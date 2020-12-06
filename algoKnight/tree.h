@@ -7,7 +7,6 @@
 #include<QCoreApplication>
 #include<QTime>
 
-
 class tree
 {
 
@@ -21,7 +20,9 @@ public:
     void deallocate(Node *root, coords popedData);
     void deallocateSibs(Node *root);
     void traverse(Node *root);
-    Node *root = NULL;
+    Node* searchNode(Node* temptr,coords temp);
+    Node *root;
+    Node *retptr;
     void delay();
 
 };

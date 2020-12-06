@@ -4,7 +4,9 @@
 
 board *wholeBoard::B[DIMENSION][DIMENSION]={};
 int wholeBoard::score = 0;
+bool wholeBoard::first=true;
 tree *wholeBoard::pathTree = new tree;
+tree::Node *wholeBoard::temp=pathTree->root;
 //tree::Node *wholeBoard::root = new tree::Node(0,0);
 std::vector<tree::coords> wholeBoard::childInfo = {};
 std::stack<tree::coords> wholeBoard::square;
@@ -48,7 +50,7 @@ void wholeBoard::availSpots()
         {
             if(B[i][j]->selected)
             {
-//                std::cout<<"user selected" <<B[i][j]->positionX<<" "<<B[i][j]->positionY<<std::endl;
+                std::cout<<"user selected" <<B[i][j]->positionX<<" "<<B[i][j]->positionY<<std::endl;
 
 //                 pathTree.root = new tree::Node(B[i][j]->positionX, B[i][j]->positionY);
                  square.push(tree::coords(B[i][j]->positionX,B[i][j]->positionY));
@@ -59,18 +61,24 @@ void wholeBoard::availSpots()
                      {
                           B[i+moveX[k]][j+moveY[k]]->available=true;
                           childInfo.push_back({i+moveX[k],j+moveY[k]});
-//                          std::cout<<"available: "<<i+moveX[k]<<" "<<j+moveY[k]<<std::endl;
+                          //std::cout<<"available: "<<i+moveX[k]<<" "<<j+moveY[k]<<std::endl;
                           childCount++;
 
                      }
                  }
 
-                if(score <= 1){
+                if(first){
                      pathTree->root->position.x = B[i][j]->positionX;
                      pathTree->root->position.y = B[i][j]->positionY;
+                     pathTree->traverseTilldata(pathTree->root, tree::coords(B[i][j]->positionX, B[i][j]->positionY), childCount, childInfo);
+                     first=!first;
                 }
+                else
+                {
 
-                pathTree->traverseTilldata(pathTree->root, tree::coords(B[i][j]->positionX, B[i][j]->positionY), childCount, childInfo);
+                temp=pathTree->searchNode(temp,tree::coords(B[i][j]->positionX, B[i][j]->positionY));
+                pathTree->traverseTilldata(temp, tree::coords(B[i][j]->positionX, B[i][j]->positionY), childCount, childInfo);
+                }
             }
             B[i][j]->update();
 
