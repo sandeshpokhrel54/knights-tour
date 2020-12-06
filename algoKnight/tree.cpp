@@ -40,7 +40,6 @@ void tree::sibblings(tree::Node *sibbling, int noOfChild, std::vector<coords> &c
     }
 }
 
-
 void tree::traverseTilldata(Node *root, coords data, int noOfChild, std::vector<coords> &childInfo)
 {
 
@@ -69,13 +68,12 @@ void tree::traverseTilldata(Node *root, coords data, int noOfChild, std::vector<
 
 }
 
-
 void tree::deallocate(Node *root, coords popedData)
 {
     if(root->position.x == popedData.x && root->position.y == popedData.y)
     {
         deallocateSibs(root->left);
-        free(root->left);
+        root->left = NULL;
     }
 
     else if(root->left != NULL)
@@ -92,10 +90,11 @@ void tree::deallocateSibs(Node *root)
 {
     if(root == NULL)
         return;
-    if(root->right == NULL)
-            free(root);
-    else
+
         deallocateSibs(root->right);
+        deallocateSibs(root->left);
+        free(root);
+
 }
 
 void tree::traverse(Node *root)
@@ -145,9 +144,6 @@ tree::Node *tree::searchNode(Node* temptr,coords temp)
     return retptr;
 }
 
-
-
-
 //very heavy function but couldn't find a better alternative
 void tree::delay()
 {
@@ -155,3 +151,4 @@ void tree::delay()
     while (QTime::currentTime() < dieTime)
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
+

@@ -114,7 +114,12 @@ void wholeBoard::deleteSq()
 
         }
     }
+
+    temp = pathTree->searchNode(temp,square.top());
+    pathTree->deallocate(temp,square.top());
     square.pop();
+    temp = pathTree->searchNode(pathTree->root,square.top());
+
     if(!square.empty())//if stack is not empty
     {
         i=square.top().x;
@@ -140,6 +145,7 @@ void wholeBoard::deleteSq()
     }
 
     //tree node delete here
+
 }
 
 void wholeBoard::traverseTree()
@@ -201,6 +207,8 @@ void wholeBoard::resetBoard()
             board::preventselect=false;
             wholeBoard::score = 0;
             B[i][j]->update();
+
+            //reset the tree as well
         }
     }
 }
