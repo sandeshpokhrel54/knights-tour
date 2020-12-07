@@ -23,6 +23,7 @@ private:
     bool isEmpty(int x, int y);
     bool isInsideBoard(int x,int y);
 
+
 public:
     solvePath();
     void findKnightPath();   //warnsdeff's algorithm

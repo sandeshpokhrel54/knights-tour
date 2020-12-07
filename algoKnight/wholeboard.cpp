@@ -219,6 +219,7 @@ void wholeBoard::resetBoard()
     score = 0;
     first=true;
     pathTree->deleteAll(pathTree->root->left);
+    pathTree->root->left = NULL;
     temp = pathTree->root;
 
     //the stack

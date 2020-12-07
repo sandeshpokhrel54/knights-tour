@@ -94,8 +94,8 @@ void solvePath::findKnightPath()
             wholeBoard::B[i][j]->visited=false;
         }
     }
-    currentX=startX=0;
-    currentY=startY=0;
+    currentX=startX=rand()%N;
+    currentY=startY=rand()%N;
     wholeBoard::B[currentX][currentY]->visited=true;
     wholeBoard::B[currentX][currentY]->selected=true;
     wholeBoard::B[currentX][currentY]->update();
@@ -109,6 +109,7 @@ void solvePath::findKnightPath()
 void solvePath::resetPath()
 {
     moves=0;
+    //timer->stop();
     delete timer;
+    timer = NULL;
 }
-
