@@ -1,4 +1,4 @@
-# knights-tour
+## knights-tour
 Data Structure Project
 
 ### Playing Instructions  
