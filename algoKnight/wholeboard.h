@@ -6,6 +6,7 @@
 #include "tree.h"
 #include <vector>
 #include<stack>
+#include<QMessageBox>
 
 class wholeBoard
 {

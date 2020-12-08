@@ -67,6 +67,15 @@ void wholeBoard::availSpots()
                      }
                  }
 
+                 if(childCount == 0)
+                 {
+                     QMessageBox msgBox;
+                     msgBox.setText("The game is over");
+                     msgBox.exec();
+                     std::cout<<"Game over"<<std::endl;
+                     std::cout<<"Score "<<score;
+                 }
+
                 if(first){
                      pathTree->root->position.x = B[i][j]->positionX;
                      pathTree->root->position.y = B[i][j]->positionY;

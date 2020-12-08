@@ -1,0 +1,10 @@
+release/board.o
+release/bstree.o
+release/main.o
+release/mainwindow.o
+release/solvePath.o
+release/wholeboard.o
+release/qrc_knight.o
+release/moc_mainwindow.o
+release/moc_solvePath.o
+release/moc_tree.o

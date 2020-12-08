@@ -1,0 +1,10 @@
+debug/board.o
+debug/bstree.o
+debug/main.o
+debug/mainwindow.o
+debug/solvePath.o
+debug/wholeboard.o
+debug/qrc_knight.o
+debug/moc_mainwindow.o
+debug/moc_solvePath.o
+debug/moc_tree.o

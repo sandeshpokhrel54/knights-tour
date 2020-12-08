@@ -25,6 +25,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_resetAll_clicked()
 {
+    //reset everything
     Board.resetBoard();
     path.resetPath();
 }
@@ -32,10 +33,10 @@ void MainWindow::on_resetAll_clicked()
 
 void MainWindow::on_autoSolve_clicked()
 {
+    //reset and solve
     Board.resetBoard();
     path.resetPath();
     path.findKnightPath();
-    //when autosolve clicked then reset then autosolve ; non existant timer is deleted so seg fault
 
 }
 
