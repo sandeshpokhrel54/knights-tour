@@ -7,9 +7,11 @@ int wholeBoard::score = 0;
 bool wholeBoard::first=true;
 tree *wholeBoard::pathTree = new tree;
 tree::Node *wholeBoard::temp=pathTree->root;
-//tree::Node *wholeBoard::root = new tree::Node(0,0);
 std::vector<tree::coords> wholeBoard::childInfo = {};
 std::stack<tree::coords> wholeBoard::square;
+QSound *wholeBoard::move = new QSound("://sounds/move.wav");
+QSound *wholeBoard::gameOver = new QSound("://sounds/loseWhining.wav");
+QSound *wholeBoard::Won = new QSound("://sounds/winTrumpet.wav");
 
 
 int wholeBoard::moveX[DIMENSION]={1,1,2,2,-1,-1,-2,-2};
@@ -17,11 +19,12 @@ int wholeBoard::moveY[DIMENSION]={2,-2,1,-1,2,-2,1,-1};
 
 wholeBoard::wholeBoard() //constructor
 {
-
+    opening = new QSound("://sounds/startUp.wav");
 }
 
 void wholeBoard::setupBoard(QGraphicsScene *scene)
 {
+        opening->play();
         for(int i = 0; i<DIMENSION; i++)
         {
             for(int j = 0; j<DIMENSION; j++)
@@ -43,6 +46,7 @@ void wholeBoard::setupBoard(QGraphicsScene *scene)
 
 void wholeBoard::availSpots()
 {
+    move->play();
     int childCount = 0;
     for(int i=0; i<DIMENSION; i++)
     {
@@ -52,7 +56,6 @@ void wholeBoard::availSpots()
             {
                 std::cout<<"user selected" <<B[i][j]->positionX<<" "<<B[i][j]->positionY<<std::endl;
 
-//                 pathTree.root = new tree::Node(B[i][j]->positionX, B[i][j]->positionY);
                  square.push(tree::coords(B[i][j]->positionX,B[i][j]->positionY));
 
                  for(int k=0;k<DIMENSION;k++)
@@ -67,15 +70,6 @@ void wholeBoard::availSpots()
                      }
                  }
 
-                 if(childCount == 0)
-                 {
-                     QMessageBox msgBox;
-                     msgBox.setText("The game is over");
-                     msgBox.exec();
-                     std::cout<<"Game over"<<std::endl;
-                     std::cout<<"Score "<<score;
-                 }
-
                 if(first){
                      pathTree->root->position.x = B[i][j]->positionX;
                      pathTree->root->position.y = B[i][j]->positionY;
@@ -87,6 +81,30 @@ void wholeBoard::availSpots()
 
                 temp=pathTree->searchNode(temp,tree::coords(B[i][j]->positionX, B[i][j]->positionY));
                 pathTree->traverseTilldata(temp, tree::coords(B[i][j]->positionX, B[i][j]->positionY), childCount, childInfo);
+                }
+
+                //just some details
+                if(childCount == 0)
+                {
+                    if(score<64)
+                    {
+                       gameOver->play();
+                       QMessageBox msgBox;
+                       msgBox.setText("The game is over");
+                       msgBox.exec();
+                       std::cout<<"Game over"<<std::endl;
+                       std::cout<<"Score "<<score;
+
+                    }
+                    else
+                    {
+                        Won->play();
+                        QMessageBox msgBox;
+                        msgBox.setText("You are Royal");
+                        msgBox.exec();
+                        std::cout<<"You win"<<std::endl;
+
+                    }
                 }
             }
             B[i][j]->update();
@@ -248,4 +266,12 @@ void wholeBoard::resetToRecap(){
             B[i][j]->update();
         }
     }
+}
+
+wholeBoard::~wholeBoard()
+{
+    delete opening;
+    delete move;
+    delete Won;
+    delete gameOver;
 }

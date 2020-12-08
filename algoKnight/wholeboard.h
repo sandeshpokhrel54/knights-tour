@@ -7,22 +7,29 @@
 #include <vector>
 #include<stack>
 #include<QMessageBox>
+#include<QSound>
 
 class wholeBoard
 {
 
+private:
+    QSound *opening;
+
 public:
     static std::stack <tree::coords> square;
     wholeBoard();
+    ~wholeBoard();
     static int score;
     static bool first;
     static board *B[DIMENSION][DIMENSION];
     static int moveX[DIMENSION];
     static int moveY[DIMENSION];
     static tree *pathTree;
-//    static tree::Node *root;
     static tree::Node *temp;
     static std::vector<tree::coords> childInfo;
+    static QSound *move;
+    static QSound *gameOver;
+    static QSound *Won;
 
     void setupBoard(QGraphicsScene *scene);
     static void availSpots();

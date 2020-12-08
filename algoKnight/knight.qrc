@@ -2,4 +2,11 @@
     <qresource prefix="/img">
         <file>image/knight.png</file>
     </qresource>
+    <qresource prefix="/move"/>
+    <qresource prefix="/">
+        <file>sounds/loseWhining.wav</file>
+        <file>sounds/move.wav</file>
+        <file>sounds/startUp.wav</file>
+        <file>sounds/winTrumpet.wav</file>
+    </qresource>
 </RCC>

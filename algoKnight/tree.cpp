@@ -100,12 +100,12 @@ void tree::deallocateSibs(Node *root)
 void tree::traverse(Node *root)
 {
  //    traversal of all selected nodes
-//    std::cout<<"hglas";
     if(root == NULL)
         return;
     if(root->left != NULL){
         std::cout<<"rootposx-> "<<root->position.x<<" ";
         std::cout<<"rootposy-> "<<root->position.y<<std::endl;
+        wholeBoard::move->play();
         wholeBoard::score++;
         wholeBoard::B[root->position.x][root->position.y]->visited = true;
         wholeBoard::B[root->position.x][root->position.y]->selected = true;

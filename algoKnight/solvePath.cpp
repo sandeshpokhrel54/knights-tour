@@ -10,6 +10,7 @@ solvePath::solvePath():moveX{1,1,2,2,-1,-1,-2,-2}  //constructor
 
 bool solvePath::findNextMove()  //warnsdeff's algorithm
 { 
+        wholeBoard::move->play();
         bstree b_tree;
         int degree;
         int moveIndex=-1;
@@ -50,6 +51,7 @@ bool solvePath::findNextMove()  //warnsdeff's algorithm
     wholeBoard::score++;
     if(moves==63)
     {
+        wholeBoard::Won->play();
         timer->stop();
 
     }
@@ -102,7 +104,7 @@ void solvePath::findKnightPath()
     wholeBoard::score++;
     timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(findNextMove()));
-    timer->start(100);
+    timer->start(500);
 
 }
 
