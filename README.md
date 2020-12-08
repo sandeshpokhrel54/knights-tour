@@ -1,6 +1,8 @@
 ## knights-tour
 Data Structure Project done by Sandesh Pokhrel, Santosh Pangeni and Subodh Baral. 
 
+Download/Clone the project and build it in Qt creator, to play.
+
 ### Playing Instructions  
 - The goal is to move the knight through the whole 8 by 8 chess board without revisiting any square twice.    
 - Click on any square to place the knight on the square.  
